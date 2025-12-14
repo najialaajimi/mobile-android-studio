@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Nom de l'application -->
+    <string name="app_name">MobileApp</string>
+    
+    <!-- LoginActivity -->
+    <string name="login_title">Connexion</string>
+    <string name="login_email">Email ou nom d\'utilisateur</string>
+    <string name="login_password">Mot de passe</string>
+    <string name="login_button">Se connecter</string>
+    <string name="login_error_empty_email">Veuillez entrer votre email</string>
+    <string name="login_error_empty_password">Veuillez entrer votre mot de passe</string>
+    <string name="login_error_invalid_email">Email invalide</string>
+    <string name="login_success">Connexion réussie</string>
+    <string name="login_welcome">Bienvenue !</string>
+    
+    <!-- HomeActivity -->
+    <string name="home_title">Accueil</string>
+    <string name="home_no_items">Aucun élément à afficher</string>
+    
+    <!-- DetailActivity -->
+    <string name="detail_title">Détails</string>
+    <string name="detail_id">ID:</string>
+    <string name="detail_description">Description:</string>
+    <string name="detail_back">Retour</string>
+    
+    <!-- Menu -->
+    <string name="menu_logout">Déconnexion</string>
+    <string name="menu_about">À propos</string>
+    <string name="menu_settings">Paramètres</string>
+    
+    <!-- Dialog À propos -->
+    <string name="about_title">À propos</string>
+    <string name="about_message">MobileApp v1.0\n\nApplication Android développée avec Kotlin et Material Design 3.\n\nDéveloppé par: Votre Nom</string>
+    <string name="about_ok">OK</string>
+    
+    <!-- Messages généraux -->
+    <string name="logout_message">Déconnexion réussie</string>
+    <string name="logout_confirm">Êtes-vous sûr de vouloir vous déconnecter ?</string>
+    <string name="cancel">Annuler</string>
+    <string name="confirm">Confirmer</string>
+    
+    <!-- Item descriptions pour les données de test -->
+    <string name="item_title_prefix">Élément</string>
+    <string name="item_description_prefix">Description détaillée de l\'élément</string>
+    
+    <!-- Messages de confirmation -->
+    <string name="quit_app_title">Quitter l\'application</string>
+    <string name="quit_app_message">Voulez-vous vraiment quitter ?</string>
+    <string name="back_press_message">Appuyez à nouveau pour quitter</string>
+    
+    <!-- Messages d'erreur -->
+    <string name="error_no_data">Aucune donnée disponible</string>
+    <string name="error_title">Erreur</string>
+    <string name="error_na">N/A</string>
+    
+    <!-- Settings -->
+    <string name="settings_dev_message">Fonctionnalité en cours de développement</string>
+</resources>
