@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/md_theme_background"
+    tools:context=".ui.detail.DetailActivity">
+
+    <!-- AppBarLayout avec Toolbar -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.Material3.Dark">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/md_theme_primary"
+            android:elevation="4dp"
+            app:navigationIcon="@android:drawable/ic_menu_close_clear_cancel"
+            app:title="@string/detail_title"
+            app:titleTextColor="@color/md_theme_onPrimary" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- Contenu de la page de détail -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="24dp">
+
+            <!-- Card contenant les détails -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="4dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="24dp">
+
+                    <!-- Titre de l'élément -->
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/textViewTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
+                        android:textColor="@color/md_theme_primary"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="Titre de l'élément" />
+
+                    <!-- Ligne de séparation -->
+                    <View
+                        android:id="@+id/divider1"
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="16dp"
+                        android:background="@color/md_theme_outlineVariant"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/textViewTitle" />
+
+                    <!-- Label ID -->
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/textViewIdLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/detail_id"
+                        android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                        android:textColor="@color/md_theme_onSurfaceVariant"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/divider1" />
+
+                    <!-- Valeur ID -->
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/textViewId"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+                        android:textColor="@color/md_theme_onSurface"
+                        app:layout_constraintBaseline_toBaselineOf="@id/textViewIdLabel"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/textViewIdLabel"
+                        tools:text="1" />
+
+                    <!-- Label Description -->
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/textViewDescriptionLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/detail_description"
+                        android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                        android:textColor="@color/md_theme_onSurfaceVariant"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/textViewIdLabel" />
+
+                    <!-- Valeur Description -->
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/textViewDescription"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                        android:textColor="@color/md_theme_onSurface"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/textViewDescriptionLabel"
+                        tools:text="Description détaillée de l'élément avec toutes les informations nécessaires." />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Bouton retour (optionnel car déjà dans la toolbar) -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonBack"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/detail_back"
+                app:cornerRadius="28dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cardView" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
