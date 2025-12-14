@@ -79,7 +79,7 @@
             android:layout_height="24dp"
             android:contentDescription="@string/app_name"
             android:src="@android:drawable/ic_menu_more"
-            android:tint="@color/md_theme_onSurfaceVariant"
+            app:tint="@color/md_theme_onSurfaceVariant"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

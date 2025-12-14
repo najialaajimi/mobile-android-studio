@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -47,6 +48,9 @@ class HomeActivity : AppCompatActivity() {
         
         // Configuration du RecyclerView
         setupRecyclerView()
+        
+        // Configuration du gestionnaire de retour moderne
+        setupBackPressedHandler()
     }
 
     /**
@@ -191,23 +195,28 @@ class HomeActivity : AppCompatActivity() {
     private fun showSettingsDialog() {
         AlertDialog.Builder(this)
             .setTitle(getString(R.string.menu_settings))
-            .setMessage("Fonctionnalité en cours de développement")
+            .setMessage(getString(R.string.settings_dev_message))
             .setPositiveButton(getString(R.string.about_ok), null)
             .show()
     }
 
     /**
-     * Gère le bouton retour - affiche un dialog de confirmation
+     * Configure le gestionnaire de retour moderne
      */
-    @Deprecated("Deprecated in Java")
-    override fun onBackPressed() {
-        AlertDialog.Builder(this)
-            .setTitle("Quitter l'application")
-            .setMessage("Voulez-vous vraiment quitter ?")
-            .setPositiveButton(getString(R.string.confirm)) { _, _ ->
-                super.onBackPressed()
+    private fun setupBackPressedHandler() {
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                AlertDialog.Builder(this@HomeActivity)
+                    .setTitle(getString(R.string.quit_app_title))
+                    .setMessage(getString(R.string.quit_app_message))
+                    .setPositiveButton(getString(R.string.confirm)) { _, _ ->
+                        // Quitter l'application
+                        isEnabled = false
+                        onBackPressedDispatcher.onBackPressed()
+                    }
+                    .setNegativeButton(getString(R.string.cancel), null)
+                    .show()
             }
-            .setNegativeButton(getString(R.string.cancel), null)
-            .show()
+        })
     }
 }

@@ -6,6 +6,7 @@ import android.text.TextUtils
 import android.util.Patterns
 import android.view.View
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import com.example.mobileapp.R
 import com.example.mobileapp.databinding.ActivityLoginBinding
@@ -22,6 +23,9 @@ class LoginActivity : AppCompatActivity() {
 
     // ViewBinding pour un accès sécurisé aux vues
     private lateinit var binding: ActivityLoginBinding
+    
+    // Flag pour détecter double appui sur retour
+    private var backPressedOnce = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +36,9 @@ class LoginActivity : AppCompatActivity() {
 
         // Configuration du bouton de connexion
         setupLoginButton()
+        
+        // Configuration du gestionnaire de retour moderne
+        setupBackPressedHandler()
     }
 
     /**
@@ -180,18 +187,30 @@ class LoginActivity : AppCompatActivity() {
     }
 
     /**
-     * Gère le bouton retour - empêche de fermer l'app facilement
+     * Configure le gestionnaire de retour moderne
      */
-    @Deprecated("Deprecated in Java")
-    override fun onBackPressed() {
-        // Afficher un message demandant confirmation
-        Snackbar.make(
-            binding.root,
-            "Appuyez à nouveau pour quitter",
-            Snackbar.LENGTH_SHORT
-        ).show()
+    private fun setupBackPressedHandler() {
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (backPressedOnce) {
+                    // Quitter l'application
+                    isEnabled = false
+                    onBackPressedDispatcher.onBackPressed()
+                    return
+                }
 
-        // Permettre de quitter si appuyé deux fois rapidement
-        super.onBackPressed()
+                backPressedOnce = true
+                Snackbar.make(
+                    binding.root,
+                    getString(R.string.back_press_message),
+                    Snackbar.LENGTH_SHORT
+                ).show()
+
+                // Réinitialiser après 2 secondes
+                binding.root.postDelayed({
+                    backPressedOnce = false
+                }, 2000)
+            }
+        })
     }
 }

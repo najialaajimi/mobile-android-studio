@@ -1,6 +1,8 @@
 package com.example.mobileapp.ui.detail
 
+import android.os.Build
 import android.os.Bundle
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import com.example.mobileapp.R
 import com.example.mobileapp.databinding.ActivityDetailBinding
@@ -30,8 +32,13 @@ class DetailActivity : AppCompatActivity() {
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Récupération de l'élément depuis l'Intent
-        item = intent.getParcelableExtra(EXTRA_ITEM)
+        // Récupération de l'élément depuis l'Intent (API 33+)
+        item = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            intent.getParcelableExtra(EXTRA_ITEM, Item::class.java)
+        } else {
+            @Suppress("DEPRECATION")
+            intent.getParcelableExtra(EXTRA_ITEM)
+        }
 
         // Configuration de la toolbar
         setupToolbar()
@@ -41,6 +48,9 @@ class DetailActivity : AppCompatActivity() {
         
         // Configuration du bouton retour
         setupBackButton()
+        
+        // Configuration du gestionnaire de retour moderne
+        setupBackPressedHandler()
     }
 
     /**
@@ -56,7 +66,7 @@ class DetailActivity : AppCompatActivity() {
         
         // Gérer le clic sur le bouton de navigation
         binding.toolbar.setNavigationOnClickListener {
-            onBackPressed()
+            finish()
         }
     }
 
@@ -81,9 +91,9 @@ class DetailActivity : AppCompatActivity() {
             }
         } ?: run {
             // Si aucun élément n'est trouvé, afficher un message d'erreur
-            binding.textViewTitle.text = "Erreur"
-            binding.textViewId.text = "N/A"
-            binding.textViewDescription.text = "Aucune donnée disponible"
+            binding.textViewTitle.text = getString(R.string.error_title)
+            binding.textViewId.text = getString(R.string.error_na)
+            binding.textViewDescription.text = getString(R.string.error_no_data)
         }
     }
 
@@ -92,25 +102,27 @@ class DetailActivity : AppCompatActivity() {
      */
     private fun setupBackButton() {
         binding.buttonBack.setOnClickListener {
-            onBackPressed()
+            finish()
         }
     }
 
     /**
-     * Gère le bouton retour système
+     * Configure le gestionnaire de retour moderne
      */
-    @Deprecated("Deprecated in Java")
-    override fun onBackPressed() {
-        super.onBackPressed()
-        // Animation de transition optionnelle
-        finish()
+    private fun setupBackPressedHandler() {
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                // Animation de transition optionnelle
+                finish()
+            }
+        })
     }
 
     /**
      * Gère le bouton retour dans la toolbar
      */
     override fun onSupportNavigateUp(): Boolean {
-        onBackPressed()
+        finish()
         return true
     }
 }
